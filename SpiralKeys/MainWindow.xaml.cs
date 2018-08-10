@@ -24,5 +24,15 @@ namespace SpiralKeys
         {
             InitializeComponent();
         }
+
+        private void DecrementButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeySelector.DecrementSelector();
+        }
+
+        private void IncrementButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeySelector.IncrementSelector();
+        }
     }
 }
