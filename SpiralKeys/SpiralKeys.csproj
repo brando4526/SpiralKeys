@@ -54,7 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SpiralManagement\Interfaces\IKeyAction.cs" />
     <Compile Include="SpiralManagement\SpiralItem.cs" />
+    <Compile Include="SpiralManagement\SpiralKey.cs" />
+    <Compile Include="SpiralManagement\SpiralKeyMode.cs" />
     <Compile Include="SpiralManagement\SpiralModelManager.cs" />
     <Compile Include="UIControls\SpiralSelector.xaml.cs">
       <DependentUpon>SpiralSelector.xaml</DependentUpon>
@@ -102,6 +105,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PreferenceData\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\backspace.png" />
+    <Resource Include="assets\keyboard-return.png" />
+    <Resource Include="assets\keyboard-shift-filled.png" />
+    <Resource Include="assets\keyboard-shift.png" />
+    <Resource Include="assets\space_bar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

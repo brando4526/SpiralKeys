@@ -47,6 +47,12 @@ namespace SpiralKeys.UIControls
             InitializeSpiral();
             DrawSpiral();
 
+            Image image = new Image();
+            image.Height = 24;
+            image.Width = 24;
+            image.Source = new BitmapImage(new Uri("../assets/keyboard-shift.png", UriKind.Relative));
+            SpiralCanvas.Children.Add(image);
+
         }
 
         private void InitializeSpiral()

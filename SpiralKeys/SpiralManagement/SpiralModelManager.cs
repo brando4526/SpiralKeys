@@ -12,6 +12,8 @@ namespace SpiralKeys.SpiralManagement
         public int StartIndex { get; set; }
         public int SelectedIndex { get; set; }
         public int EndIndex { get; set; }
+        public SpiralKeyMode SelectedKeyMode { get; set; }
+        public List<SpiralKeyMode> SpiralKeyModes { get; set; }
 
         public SpiralModelManager()
         {
@@ -70,6 +72,27 @@ namespace SpiralKeys.SpiralManagement
             else
             {
                 return --index;
+            }
+        }
+
+
+        private void InitializeKeys()
+        {
+            string alphabetString = "abcdefghijklmnopqrstuvwxyz";
+            string alphabetCapsString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string specialsString = "~!@#$%^&*()_+-={}[]|:\"'<>,.?/\\";
+            SpiralKeyModes = new List<SpiralKeyMode>();
+            SpiralKeyMode alphaMode = new SpiralKeyMode
+            {
+                Name = "Alphabet Lower Case",
+                Keys = new List<SpiralKey>()
+            };
+            foreach (var character in alphabetString.ToCharArray())
+            {
+                alphaMode.Keys.Add(new SpiralKey
+                {
+                    Name=character.ToString(),
+                });
             }
         }
     }
