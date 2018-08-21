@@ -46,13 +46,6 @@ namespace SpiralKeys.UIControls
 
             InitializeSpiral();
             DrawSpiral();
-
-            Image image = new Image();
-            image.Height = 24;
-            image.Width = 24;
-            image.Source = new BitmapImage(new Uri("../assets/keyboard-shift.png", UriKind.Relative));
-            SpiralCanvas.Children.Add(image);
-
         }
 
         private void InitializeSpiral()
@@ -62,14 +55,7 @@ namespace SpiralKeys.UIControls
 
             for (int i = MinKeyIndex; i < VisibleKeys; ++i)
             {
-
-                TextBlock keyLabel = new TextBlock
-                {
-                    Text = spiralModel.GetItemForInitialization(),
-                    FontSize = KeyFontSize,
-
-                };
-                SpiralList.AddLast(new SpiralItem { Content = keyLabel, Index = i });
+                SpiralList.AddLast(new SpiralItem { Key = spiralModel.GetItemForInitialization(), Index = i });
                 MaxKeyIndex = i;
 
             }
@@ -84,9 +70,10 @@ namespace SpiralKeys.UIControls
             {
                 var theta = angle * item.Index;
                 var alpha = InnerRadius + RadiusSpread * alphaIndex;
-                Canvas.SetLeft(item.Content, WheelCenter.X + alpha * Math.Cos(theta));
-                Canvas.SetTop(item.Content, WheelCenter.Y + alpha * Math.Sin(theta));
-                SpiralCanvas.Children.Add(item.Content);
+                UIElement uIElement = CreateUIElement(item.Key);
+                Canvas.SetLeft(uIElement, WheelCenter.X + alpha * Math.Cos(theta));
+                Canvas.SetTop(uIElement, WheelCenter.Y + alpha * Math.Sin(theta));
+                SpiralCanvas.Children.Add(uIElement);
                 alphaIndex++;
 
                 if (SelectedKeyIndex == item.Index)
@@ -96,8 +83,8 @@ namespace SpiralKeys.UIControls
                         Stroke = new SolidColorBrush(Colors.Black),
                         StrokeThickness = 1,
 
-                        Width = 25,
-                        Height = 25
+                        Width = 30,
+                        Height = 30
                     };
                     Canvas.SetLeft(selectedCircle, WheelCenter.X + alpha * Math.Cos(theta)-5);
                     Canvas.SetTop(selectedCircle, (WheelCenter.Y + alpha * Math.Sin(theta)) + 2);
@@ -109,14 +96,9 @@ namespace SpiralKeys.UIControls
 
         public void IncrementSelector()
         {
-            TextBlock keyLabel = new TextBlock
-            {
-                Text = spiralModel.GetNextItem(),
-                FontSize = KeyFontSize,
-            };
             MaxKeyIndex = ++MaxKeyIndex;
             MinKeyIndex = ++MinKeyIndex;
-            SpiralList.AddLast(new SpiralItem { Content = keyLabel, Index = MaxKeyIndex });
+            SpiralList.AddLast(new SpiralItem { Key = spiralModel.GetNextItem(), Index = MaxKeyIndex });
             SpiralList.RemoveFirst();
             SelectedKeyIndex++;
             UpdateKeyWheel();
@@ -125,14 +107,9 @@ namespace SpiralKeys.UIControls
 
         public void DecrementSelector()
         {
-            TextBlock keyLabel = new TextBlock
-            {
-                Text = spiralModel.GetPreviousItem(),
-                FontSize = KeyFontSize,
-            };
             MaxKeyIndex = --MaxKeyIndex;
             MinKeyIndex = --MinKeyIndex;
-            SpiralList.AddFirst(new SpiralItem { Content = keyLabel, Index = MinKeyIndex });
+            SpiralList.AddFirst(new SpiralItem { Key = spiralModel.GetPreviousItem(), Index = MinKeyIndex });
             SpiralList.RemoveLast();
             SelectedKeyIndex--;
             UpdateKeyWheel();
@@ -145,6 +122,27 @@ namespace SpiralKeys.UIControls
                 SpiralCanvas.Children.Clear();
                 DrawSpiral();
             }));
+        }
+
+        private UIElement CreateUIElement(SpiralKey key)
+        {
+            if (key.ContentType == KeyContentType.Image)
+            {
+                return new Image
+                {
+                    Height = KeyFontSize+3,
+                    Width = KeyFontSize+3,
+                    Source = new BitmapImage(new Uri(key.Content, UriKind.Relative))
+                };
+            }
+            else
+            {
+                return new TextBlock
+                {
+                    Text = key.Content,
+                    FontSize = KeyFontSize,
+                };
+            }
         }
     }
 }

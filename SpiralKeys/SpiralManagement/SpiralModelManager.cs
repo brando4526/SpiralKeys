@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpiralKeys.SpiralManagement
 {
     public class SpiralModelManager
     {
-        public List<string> Keys { get; set; }
+        public List<SpiralKey> Keys { get; set; }
         public int StartIndex { get; set; }
         public int SelectedIndex { get; set; }
         public int EndIndex { get; set; }
@@ -17,7 +14,8 @@ namespace SpiralKeys.SpiralManagement
 
         public SpiralModelManager()
         {
-            Keys = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            InitializeKeys();
+            Keys = SpiralKeyModes[0].Keys;
             StartIndex = 0;
             SelectedIndex = 0;
         }
@@ -27,9 +25,9 @@ namespace SpiralKeys.SpiralManagement
             SelectedIndex = 0;
         }
 
-        public string GetItemForInitialization()
+        public SpiralKey GetItemForInitialization()
         {
-            string itemToReturn = Keys.ElementAt(SelectedIndex);
+            SpiralKey itemToReturn = Keys.ElementAt(SelectedIndex);
             EndIndex = SelectedIndex;
 
             SelectedIndex = GetNextIndex(SelectedIndex);
@@ -37,14 +35,14 @@ namespace SpiralKeys.SpiralManagement
             return itemToReturn;
         }
 
-        public string GetNextItem()
+        public SpiralKey GetNextItem()
         {
             EndIndex = GetNextIndex(EndIndex);
             StartIndex = GetNextIndex(StartIndex);
             return Keys.ElementAt(EndIndex);
         }
 
-        public string GetPreviousItem()
+        public SpiralKey GetPreviousItem()
         {
             StartIndex = GetPreviousIndex(StartIndex);
             EndIndex = GetPreviousIndex(EndIndex);
@@ -80,20 +78,54 @@ namespace SpiralKeys.SpiralManagement
         {
             string alphabetString = "abcdefghijklmnopqrstuvwxyz";
             string alphabetCapsString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            string specialsString = "~!@#$%^&*()_+-={}[]|:\"'<>,.?/\\";
+            string specialsString = "0123456789~!@#$%^&*()_+-={}[]|:\"'<>,.?/\\";
+
+            SpiralKey shiftUpKey= new SpiralKey
+            {
+                Name = "shift",
+                Content = "../assets/keyboard-shift.png",
+                ContentType = KeyContentType.Image
+            };
+            SpiralKey spacebar = new SpiralKey
+            {
+                Name = "space",
+                Content = "../assets/space_bar.png",
+                ContentType = KeyContentType.Image
+            };
+            SpiralKey backspaceKey = new SpiralKey
+            {
+                Name = "delete",
+                Content = "../assets/backspace.png",
+                ContentType = KeyContentType.Image
+            };
+            SpiralKey enterKey = new SpiralKey
+            {
+                Name = "enter",
+                Content = "../assets/keyboard-return.png",
+                ContentType = KeyContentType.Image
+            };
             SpiralKeyModes = new List<SpiralKeyMode>();
+
             SpiralKeyMode alphaMode = new SpiralKeyMode
             {
                 Name = "Alphabet Lower Case",
                 Keys = new List<SpiralKey>()
             };
+            alphaMode.Keys.Add(shiftUpKey);
+            alphaMode.Keys.Add(enterKey);
+            alphaMode.Keys.Add(backspaceKey);
+            alphaMode.Keys.Add(spacebar);
             foreach (var character in alphabetString.ToCharArray())
             {
                 alphaMode.Keys.Add(new SpiralKey
                 {
                     Name=character.ToString(),
+                    Content=character.ToString(),
+                    ContentType=KeyContentType.Text
                 });
             }
+            SpiralKeyModes.Add(alphaMode);
+
         }
     }
 }
