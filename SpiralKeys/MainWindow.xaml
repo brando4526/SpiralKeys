@@ -6,14 +6,16 @@
         xmlns:local="clr-namespace:SpiralKeys"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
+        
         xmlns:myControls="clr-namespace:SpiralKeys.UIControls">
+    <!--WindowStyle="None" AllowsTransparency="True" Background="Transparent"-->
     <Grid>
         <myControls:SpiralSelector x:Name="KeySelector"/>
         <Canvas x:Name="TestButtons" >
 
             <Button x:Name="Next" Content="Increment" Canvas.Left="628" Canvas.Top="32" Width="75" Click="IncrementButton_Click"/>
             <Button x:Name="Previous" Content="Decrement" Canvas.Left="530" Canvas.Top="32" Width="75" Click="DecrementButton_Click"/>
-            <Button x:Name="SelectButton" Content="Select" Canvas.Left="436" Canvas.Top="32" Width="75"/>
+            <Button x:Name="SelectButton" Content="Select" Canvas.Left="436" Canvas.Top="32" Width="75" Click="SelectButton_Click"/>
         </Canvas>
     </Grid>
 </Window>

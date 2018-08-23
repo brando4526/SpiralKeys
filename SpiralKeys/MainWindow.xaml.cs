@@ -34,5 +34,10 @@ namespace SpiralKeys
         {
             KeySelector.IncrementSelector();
         }
+
+        private void SelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeySelector.SelectKey();
+        }
     }
 }

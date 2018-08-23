@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SpiralKeys.UIControls;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SpiralKeys.SpiralManagement
@@ -9,20 +10,31 @@ namespace SpiralKeys.SpiralManagement
         public int StartIndex { get; set; }
         public int SelectedIndex { get; set; }
         public int EndIndex { get; set; }
-        public SpiralKeyMode SelectedKeyMode { get; set; }
+        private readonly SpiralSelector controlHandle;
+        
         public List<SpiralKeyMode> SpiralKeyModes { get; set; }
 
-        public SpiralModelManager()
+        public SpiralModelManager(SpiralSelector controlHandle)
         {
+            
+            this.controlHandle = controlHandle;
             InitializeKeys();
             Keys = SpiralKeyModes[0].Keys;
-            StartIndex = 0;
-            SelectedIndex = 0;
+            ResetIndexes();
         }
 
-        public void ResetIndex()
+        public void ResetIndexes()
         {
             SelectedIndex = 0;
+            StartIndex = 0;
+
+        }
+
+        public void ChangeKeyMode(string modeName)
+        {
+            //todo:error checking
+            Keys = SpiralKeyModes.Find(x => x.Name.Contains(modeName)).Keys;
+            ResetIndexes();
         }
 
         public SpiralKey GetItemForInitialization()
@@ -80,12 +92,36 @@ namespace SpiralKeys.SpiralManagement
             string alphabetCapsString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             string specialsString = "0123456789~!@#$%^&*()_+-={}[]|:\"'<>,.?/\\";
 
-            SpiralKey shiftUpKey= new SpiralKey
+            SpiralKey shiftUpKey = new SpiralKey
             {
                 Name = "shift",
                 Content = "../assets/keyboard-shift.png",
-                ContentType = KeyContentType.Image
+                ContentType = KeyContentType.Image,
+                KeyAction = new ModeSwitchAction(this.controlHandle, "Alphabet Upper Case")
             };
+            SpiralKey shiftDownKey = new SpiralKey
+            {
+                Name = "shift down",
+                Content = "../assets/keyboard-shift-filled.png",
+                ContentType = KeyContentType.Image,
+                KeyAction = new ModeSwitchAction(this.controlHandle, "Alphabet Lower Case")
+            };
+            SpiralKey specialsKey = new SpiralKey
+            {
+                Name = "special",
+                Content = "123",
+                ContentType = KeyContentType.Text,
+                KeyAction = new ModeSwitchAction(this.controlHandle, "Specials")
+            };
+            SpiralKey alphabetKey = new SpiralKey
+            {
+                Name = "alphabet",
+                Content = "ABC",
+                ContentType = KeyContentType.Text,
+                KeyAction = new ModeSwitchAction(this.controlHandle, "Alphabet Lower Case")
+            };
+
+
             SpiralKey spacebar = new SpiralKey
             {
                 Name = "space",
@@ -104,6 +140,8 @@ namespace SpiralKeys.SpiralManagement
                 Content = "../assets/keyboard-return.png",
                 ContentType = KeyContentType.Image
             };
+            
+
             SpiralKeyModes = new List<SpiralKeyMode>();
 
             SpiralKeyMode alphaMode = new SpiralKeyMode
@@ -112,6 +150,7 @@ namespace SpiralKeys.SpiralManagement
                 Keys = new List<SpiralKey>()
             };
             alphaMode.Keys.Add(shiftUpKey);
+            alphaMode.Keys.Add(specialsKey);
             alphaMode.Keys.Add(enterKey);
             alphaMode.Keys.Add(backspaceKey);
             alphaMode.Keys.Add(spacebar);
@@ -125,6 +164,48 @@ namespace SpiralKeys.SpiralManagement
                 });
             }
             SpiralKeyModes.Add(alphaMode);
+
+            //Capital letters mode
+            SpiralKeyMode alphaCapMode = new SpiralKeyMode
+            {
+                Name = "Alphabet Upper Case",
+                Keys = new List<SpiralKey>()
+            };
+            alphaCapMode.Keys.Add(shiftDownKey);
+            alphaCapMode.Keys.Add(specialsKey);
+            alphaCapMode.Keys.Add(enterKey);
+            alphaCapMode.Keys.Add(backspaceKey);
+            alphaCapMode.Keys.Add(spacebar);
+            foreach (var character in alphabetCapsString.ToCharArray())
+            {
+                alphaCapMode.Keys.Add(new SpiralKey
+                {
+                    Name = character.ToString(),
+                    Content = character.ToString(),
+                    ContentType = KeyContentType.Text
+                });
+            }
+            SpiralKeyModes.Add(alphaCapMode);
+
+            SpiralKeyMode specialsMode = new SpiralKeyMode
+            {
+                Name = "Specials",
+                Keys = new List<SpiralKey>()
+            };
+            specialsMode.Keys.Add(alphabetKey);
+            specialsMode.Keys.Add(enterKey);
+            specialsMode.Keys.Add(backspaceKey);
+            specialsMode.Keys.Add(spacebar);
+            foreach (var character in specialsString.ToCharArray())
+            {
+                specialsMode.Keys.Add(new SpiralKey
+                {
+                    Name = character.ToString(),
+                    Content = character.ToString(),
+                    ContentType = KeyContentType.Text
+                });
+            }
+            SpiralKeyModes.Add(specialsMode);
 
         }
     }

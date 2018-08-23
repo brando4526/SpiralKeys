@@ -1,17 +1,10 @@
 ﻿using SpiralKeys.SpiralManagement;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SpiralKeys.UIControls
@@ -41,8 +34,8 @@ namespace SpiralKeys.UIControls
             InnerRadius = 50.0;
             RadiusSpread = 4.0;
             KeyFontSize = 20;
-            SelectedKeyIndex = 18;
-            spiralModel = new SpiralModelManager();
+            
+            spiralModel = new SpiralModelManager(this);
 
             InitializeSpiral();
             DrawSpiral();
@@ -50,6 +43,7 @@ namespace SpiralKeys.UIControls
 
         private void InitializeSpiral()
         {
+            SelectedKeyIndex = 18;
             SpiralList = new LinkedList<SpiralItem>();
             MinKeyIndex = 0;
 
@@ -115,6 +109,33 @@ namespace SpiralKeys.UIControls
             UpdateKeyWheel();
         }
 
+        public void SelectKey()
+        {
+            for (var node = SpiralList.First; node != null; node = node.Next)
+            {
+                if (node.Value.Index == SelectedKeyIndex)
+                {
+                    try
+                    {
+                        node.Value.Key.KeyAction.ExecuteAction();
+                    }
+                    catch(Exception ex)
+                    {
+                        //todo: error handling
+                    }    
+                    break;
+                }
+            }
+        }
+
+        public void SwitchMode(string modeName)
+        {
+            spiralModel.ChangeKeyMode(modeName);
+            InitializeSpiral();
+            UpdateKeyWheel();
+        }
+
+
         private void UpdateKeyWheel()
         {
             Dispatcher.Invoke((Action)(() =>
@@ -123,6 +144,7 @@ namespace SpiralKeys.UIControls
                 DrawSpiral();
             }));
         }
+
 
         private UIElement CreateUIElement(SpiralKey key)
         {
@@ -144,6 +166,7 @@ namespace SpiralKeys.UIControls
                 };
             }
         }
+
     }
 }
 

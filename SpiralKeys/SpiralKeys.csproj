@@ -55,6 +55,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="SpiralManagement\Interfaces\IKeyAction.cs" />
+    <Compile Include="SpiralManagement\KeyPressAction.cs" />
+    <Compile Include="SpiralManagement\ModeSwitchAction.cs" />
     <Compile Include="SpiralManagement\SpiralItem.cs" />
     <Compile Include="SpiralManagement\SpiralKey.cs" />
     <Compile Include="SpiralManagement\SpiralKeyMode.cs" />
