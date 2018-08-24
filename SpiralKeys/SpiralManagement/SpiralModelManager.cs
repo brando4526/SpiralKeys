@@ -160,7 +160,8 @@ namespace SpiralKeys.SpiralManagement
                 {
                     Name=character.ToString(),
                     Content=character.ToString(),
-                    ContentType=KeyContentType.Text
+                    ContentType=KeyContentType.Text,
+                    KeyAction = new KeyPressAction(character.ToString())
                 });
             }
             SpiralKeyModes.Add(alphaMode);
@@ -182,7 +183,8 @@ namespace SpiralKeys.SpiralManagement
                 {
                     Name = character.ToString(),
                     Content = character.ToString(),
-                    ContentType = KeyContentType.Text
+                    ContentType = KeyContentType.Text,
+                    KeyAction = new KeyPressAction(character.ToString())
                 });
             }
             SpiralKeyModes.Add(alphaCapMode);

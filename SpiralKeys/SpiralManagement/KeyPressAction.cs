@@ -1,22 +1,23 @@
-﻿using SpiralKeys.SpiralManagement.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpiralKeys.IOManagement;
+using SpiralKeys.SpiralManagement.Interfaces;
 
 namespace SpiralKeys.SpiralManagement
 {
     public class KeyPressAction : IKeyAction
     {
+        private readonly OutputManager outputManager;
+        private string characterString;
+
         public KeyPressAction(string characterString)
         {
-
+            this.characterString = characterString;
+            outputManager = OutputManager.GetOutputManager();
         }
 
         public void ExecuteAction()
         {
-            throw new NotImplementedException();
+            //todo: better error checking
+            outputManager.ExecuteKeySequence(characterString);
         }
     }
 }

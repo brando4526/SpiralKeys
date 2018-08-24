@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Interop;
 
 namespace SpiralKeys
 {
@@ -20,6 +10,15 @@ namespace SpiralKeys
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const int WS_EX_NOACTIVATE = 0x08000000;
+        private const int GWL_EXSTYLE = -20;
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll")]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,6 +37,14 @@ namespace SpiralKeys
         private void SelectButton_Click(object sender, RoutedEventArgs e)
         {
             KeySelector.SelectKey();
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            var helper = new WindowInteropHelper(this);
+            SetWindowLong(helper.Handle, GWL_EXSTYLE, GetWindowLong(helper.Handle, GWL_EXSTYLE) | WS_EX_NOACTIVATE);
         }
     }
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         
-        xmlns:myControls="clr-namespace:SpiralKeys.UIControls">
+        xmlns:myControls="clr-namespace:SpiralKeys.UIControls" Topmost="True" >
     <!--WindowStyle="None" AllowsTransparency="True" Background="Transparent"-->
     <Grid>
         <myControls:SpiralSelector x:Name="KeySelector"/>
