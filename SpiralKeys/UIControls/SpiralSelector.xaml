@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SpiralKeys.UIControls"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="400">
+             d:DesignHeight="500" d:DesignWidth="500">
     <Grid>
-        <Canvas x:Name="SpiralCanvas" Height="400" Width="400"/>
+        <Canvas x:Name="SpiralCanvas" Height="500" Width="500"/>
         
     </Grid>
 </UserControl>

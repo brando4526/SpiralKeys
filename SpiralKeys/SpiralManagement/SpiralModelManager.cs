@@ -126,21 +126,60 @@ namespace SpiralKeys.SpiralManagement
             {
                 Name = "space",
                 Content = "../assets/space_bar.png",
-                ContentType = KeyContentType.Image
+                ContentType = KeyContentType.Image,
+                KeyAction = new KeyPressAction(" ")
             };
             SpiralKey backspaceKey = new SpiralKey
             {
                 Name = "delete",
                 Content = "../assets/backspace.png",
-                ContentType = KeyContentType.Image
+                ContentType = KeyContentType.Image,
+                KeyAction = new KeyPressAction("{BACKSPACE}")
             };
             SpiralKey enterKey = new SpiralKey
             {
                 Name = "enter",
                 Content = "../assets/keyboard-return.png",
-                ContentType = KeyContentType.Image
+                ContentType = KeyContentType.Image,
+                KeyAction = new KeyPressAction("{ENTER}")
             };
-            
+            SpiralKey tabKey = new SpiralKey
+            {
+                Name = "tab",
+                Content = "TAB",
+                ContentType = KeyContentType.Text,
+                KeyAction = new KeyPressAction("{TAB}")
+            };
+
+            SpiralKey upArrowKey = new SpiralKey
+            {
+                Name = "up",
+                Content = "../assets/chevron-up.png",
+                ContentType = KeyContentType.Image,
+                KeyAction = new KeyPressAction("{UP}")
+            };
+            SpiralKey downArrowKey = new SpiralKey
+            {
+                Name = "up",
+                Content = "../assets/chevron-down.png",
+                ContentType = KeyContentType.Image,
+                KeyAction = new KeyPressAction("{DOWN}")
+            };
+            SpiralKey rightArrowKey = new SpiralKey
+            {
+                Name = "right",
+                Content = "../assets/chevron-right.png",
+                ContentType = KeyContentType.Image,
+                KeyAction = new KeyPressAction("{RIGHT}")
+            };
+            SpiralKey leftArrowKey = new SpiralKey
+            {
+                Name = "left",
+                Content = "../assets/chevron-left.png",
+                ContentType = KeyContentType.Image,
+                KeyAction = new KeyPressAction("{LEFT}")
+            };
+
 
             SpiralKeyModes = new List<SpiralKeyMode>();
 
@@ -154,6 +193,7 @@ namespace SpiralKeys.SpiralManagement
             alphaMode.Keys.Add(enterKey);
             alphaMode.Keys.Add(backspaceKey);
             alphaMode.Keys.Add(spacebar);
+            alphaMode.Keys.Add(tabKey);
             foreach (var character in alphabetString.ToCharArray())
             {
                 alphaMode.Keys.Add(new SpiralKey
@@ -164,6 +204,10 @@ namespace SpiralKeys.SpiralManagement
                     KeyAction = new KeyPressAction(character.ToString())
                 });
             }
+            alphaMode.Keys.Add(upArrowKey);
+            alphaMode.Keys.Add(downArrowKey);
+            alphaMode.Keys.Add(rightArrowKey);
+            alphaMode.Keys.Add(leftArrowKey);
             SpiralKeyModes.Add(alphaMode);
 
             //Capital letters mode
@@ -177,6 +221,7 @@ namespace SpiralKeys.SpiralManagement
             alphaCapMode.Keys.Add(enterKey);
             alphaCapMode.Keys.Add(backspaceKey);
             alphaCapMode.Keys.Add(spacebar);
+            alphaCapMode.Keys.Add(tabKey);
             foreach (var character in alphabetCapsString.ToCharArray())
             {
                 alphaCapMode.Keys.Add(new SpiralKey
@@ -187,6 +232,10 @@ namespace SpiralKeys.SpiralManagement
                     KeyAction = new KeyPressAction(character.ToString())
                 });
             }
+            alphaCapMode.Keys.Add(upArrowKey);
+            alphaCapMode.Keys.Add(downArrowKey);
+            alphaCapMode.Keys.Add(rightArrowKey);
+            alphaCapMode.Keys.Add(leftArrowKey);
             SpiralKeyModes.Add(alphaCapMode);
 
             SpiralKeyMode specialsMode = new SpiralKeyMode
@@ -204,9 +253,14 @@ namespace SpiralKeys.SpiralManagement
                 {
                     Name = character.ToString(),
                     Content = character.ToString(),
-                    ContentType = KeyContentType.Text
+                    ContentType = KeyContentType.Text,
+                    KeyAction = new KeyPressAction("{"+character.ToString()+"}")
                 });
             }
+            specialsMode.Keys.Add(upArrowKey);
+            specialsMode.Keys.Add(downArrowKey);
+            specialsMode.Keys.Add(rightArrowKey);
+            specialsMode.Keys.Add(leftArrowKey);
             SpiralKeyModes.Add(specialsMode);
 
         }
