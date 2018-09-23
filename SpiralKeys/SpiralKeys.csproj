@@ -63,6 +63,9 @@
     <Compile Include="SpiralManagement\SpiralKey.cs" />
     <Compile Include="SpiralManagement\SpiralKeyMode.cs" />
     <Compile Include="SpiralManagement\SpiralModelManager.cs" />
+    <Compile Include="UIControls\PredictionSelector.xaml.cs">
+      <DependentUpon>PredictionSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\SpiralSelector.xaml.cs">
       <DependentUpon>SpiralSelector.xaml</DependentUpon>
     </Compile>
@@ -78,6 +81,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UIControls\PredictionSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIControls\SpiralSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

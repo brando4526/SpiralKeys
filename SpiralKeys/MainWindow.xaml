@@ -6,15 +6,22 @@
         xmlns:local="clr-namespace:SpiralKeys"
         mc:Ignorable="d"
         Title="Spiral Keys" Height="600" Width="800"
-        
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         xmlns:myControls="clr-namespace:SpiralKeys.UIControls" Topmost="True" WindowStartupLocation="CenterScreen" >
+    
     <!--WindowStyle="None" AllowsTransparency="True" Background="Transparent"-->
     <Grid>
-        <myControls:SpiralSelector x:Name="KeySelector"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <myControls:PredictionSelector x:Name="PredictionSelector" Grid.Column="0" VerticalAlignment="Center"/>
+        <myControls:SpiralSelector x:Name="KeySelector" Grid.Column="1"/>
         <Canvas x:Name="TestButtons" >
 
-            <Button x:Name="Next" Content="Increment" Canvas.Left="684" Canvas.Top="32" Width="75" Click="IncrementButton_Click" Height="45"/>
-            <Button x:Name="Previous" Content="Decrement" Canvas.Left="592" Canvas.Top="32" Width="75" Click="DecrementButton_Click" Height="45"/>
+            <RepeatButton x:Name="Next" Content="Increment" Canvas.Left="684" Canvas.Top="32" Width="75" Click="IncrementButton_Click" Height="45"/>
+            <RepeatButton x:Name="Previous" Content="Decrement" Canvas.Left="592" Canvas.Top="32" Width="75" Click="DecrementButton_Click" Height="45"/>
             <Button x:Name="SelectButton" Content="Select" Canvas.Left="500" Canvas.Top="32" Width="75" Click="SelectButton_Click" Height="45"/>
         </Canvas>
     </Grid>
