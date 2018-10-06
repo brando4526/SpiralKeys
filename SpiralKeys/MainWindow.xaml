@@ -18,7 +18,7 @@
 
         <myControls:PredictionSelector x:Name="PredictionSelector" Grid.Column="0" VerticalAlignment="Center"/>
         <myControls:SpiralSelector x:Name="KeySelector" Grid.Column="1"/>
-        <Canvas x:Name="TestButtons" >
+        <Canvas x:Name="TestButtons" Visibility="Visible">
 
             <RepeatButton x:Name="Next" Content="Increment" Canvas.Left="684" Canvas.Top="32" Width="75" Click="IncrementButton_Click" Height="45"/>
             <RepeatButton x:Name="Previous" Content="Decrement" Canvas.Left="592" Canvas.Top="32" Width="75" Click="DecrementButton_Click" Height="45"/>

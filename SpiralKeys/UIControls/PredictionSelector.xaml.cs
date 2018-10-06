@@ -13,7 +13,7 @@ namespace SpiralKeys.UIControls
         public PredictionSelector()
         {
             InitializeComponent();
-            predictionOptions = new List<string> { "optionone", "optiontwo", "optionthree", "optionfour" };
+            predictionOptions = new List<string> { "the", "quick", "brown", "fox","jumped" };
             PredictionListBox.ItemsSource = predictionOptions;
         }
     }
